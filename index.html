@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Template Website</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-secondary navbar-fixed-top ">
+      <a class="navbar-brand" href="index.html">Template Website</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contactUS">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid" id="services">
+      <div class="container">
+        <h1 class="display-4">Welcome to my website</h1>
+        <p class="lead">
+          This is a template website where people can view and download
+          templates.
+        </p>
+        <a class="btn btn-primary btn-lg" href="index.html" role="button"
+          >Generate New Joke</a> <span> &nbsp;&nbsp; OR</span> <br>
+
+        <h6>Refresh Website to see a new Joke </h6>
+
+          <h3 id="apiJokeGenerator"></h3>
+
+          <!-- Displaying Meme Jokes -->
+          <div id="meme-jokes"></div>
+
+          <script>
+            var baseURL = "https://v2.jokeapi.dev";
+            var categories = [
+              "Programming",
+              "Misc",
+              "Pun",
+              "Spooky",
+              "Christmas",
+            ];
+            var params = [
+              "blacklistFlags=nsfw,religious,racist",
+              "idRange=0-100",
+            ];
+
+            var xhr = new XMLHttpRequest();
+            xhr.open(
+              "GET",
+              baseURL + "/joke/" + categories.join(",") + "?" + params.join("&")
+            );
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4 && xhr.status < 300) {
+                // readyState 4 means request has finished + we only want to parse the joke if the request was successful (status code lower than 300)
+                var randomJoke = JSON.parse(xhr.responseText);
+
+                if (randomJoke.type == "single") {
+                  // If type == "single", the joke only has the "joke" property
+                  $("#apiJokeGenerator").append(
+                    "<div>" + randomJoke.joke + "</div>"
+                  );
+                } else {
+                  // If type == "single", the joke only has the "joke" property
+                  $("#apiJokeGenerator").append(
+                    "<div>" + randomJoke.setup + "</div>"
+                  );
+                  $("#apiJokeGenerator").append(
+                    "<div>" + randomJoke.delivery + "</div>"
+                  );
+                }
+              } else if (xhr.readyState == 4) {
+                alert(
+                  "Error while requesting joke.\n\nStatus code: " +
+                    xhr.status +
+                    "\nServer response: " +
+                    xhr.responseText
+                );
+              }
+            };
+
+            xhr.send();
+          </script>
+
+          <div>
+            <!-- Jumbotron -->
+            <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                <h1 class="display-4">Meme Templates</h1>
+
+                <p class="lead">
+                  This is a template website where people can view and download
+                  templates.
+                </p>
+              </div>
+            </div>
+
+            <!-- Gallery -->
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  <img src="images\change my meme.jpeg" class="img-fluid" />
+                  <p class="meme-description">Change My Mind                   
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img" src="download-button-img.png" alt=""></a>
+                  </p>
+
+                  
+                </div>
+                <div class="col-md-4">
+                  <a href="images\confused guy.jpeg" data-lightbox="gallery">
+                    <img src="images\confused guy.jpeg" class="img-fluid" />
+                  </a>
+                  <p class="meme-description">Confused Guy 
+                  <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <img
+                    src="images\distracted boyfriend Two girls one guy meme.jpeg"  class="img-fluid" />
+                  <p class="meme-description">Distracted Boyfriend Two Girls One Guy 
+                  <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <img
+                    src="images\Drake Hotline bling meme.jpeg"  class="img-fluid"/>
+                  <p class="meme-description">Drake Hotline bling meme
+                  <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <img
+                    src="images\guy holding cardboard sign meme.jpeg" class="img-fluid" />
+                  <p class="meme-description">Guy Holding Cardboard Sign meme
+                  <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a></p>
+                </div>
+                <div class="col-md-4">
+                  <img
+                    src="images\I bet he is thinking about other women.jpeg" class="img-fluid"/>
+                    <p class="meme-description">I bet he is thinking of other women
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                  </div>
+
+
+                <div class="col-md-4">
+                  <img
+                    src="images\You got i receive.jpeg" class="img-fluid"/>
+                    <p class="meme-description">You got I receive
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                </div>
+
+
+                <div class="col-md-4">
+                  <img
+                    src="images\Two button blank meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Two button blank meme
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                
+                  </div>
+
+
+                <div class="col-md-4">
+                  <img
+                    src="images\spiderman triple pointing out each other meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Spiderman triple pointing out eachther
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                  </div>
+
+
+                <div class="col-md-4">
+                  <img
+                    src="images\running away balloon meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Running away balloon meme
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                </div>
+
+                
+                <div class="col-md-4">
+                  <img
+                    src="images\sad pablo escobar meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Sad pablo escobar meme              
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                  <img
+                    src="images\panik kalm panik meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Panik kalm panik meme
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                </div><div class="col-md-4">
+                  <img
+                    src="images\Mr bean waiting meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Mr bean waiting meme
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                  <img
+                    src="images\Left exit 12 off ramp meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Left exit 12 off ramp meme
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>
+                </div>
+
+                <div class="col-md-4">
+                  <img
+                    src="images\khaby lame meme.jpeg" class="img-fluid"/>
+                    <p class="meme-description">Khaby lame meme
+                    <a href="images\change my meme.jpeg" download class="download-button"><img class="download-button-img"src="download-button-img.png" alt="download-button-img.png"></a>
+                    </p>  
+                </div>
+
+                
+
+               
+                <!-- jQuery, Popper.js, and Bootstrap JS -->
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+              </div>
+            </div>
+          </div>
+        </h1>
+      </div>
+    </div>
+
+
+
+
+     <!-- Main Content -->
+     <div class="container">
+      <div class="row">
+        <div class="feature-box col-lg-6">
+              <h5><b>About Us</b> </h5>
+              <p>
+                This is a template website where people can view and
+                download templates.
+              </p>
+        </div>
+
+        <div class="feature-box col-lg-6" id="about">
+          <h2>What we do</h2>
+          <p>
+            This is a template website where people can view and
+            download templates.
+          </p>
+          <p>Here you can find different kinds of templates.</p>
+        </div>
+      </div>
+      </div>
+
+
+
+    <!-- Footer -->
+
+    <div id="footer" >
+      <footer class="footer bg-dark text-light foot">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4" id="contactUS">
+              <h2>Contact Us</h2>
+              
+              <p>Meerut, India 250004</p>
+              <p>Phone: 741773092</p>
+              <p>Email: ujjwal.sharma.cse47@gmail.com</p>
+            </div>
+            
+            <div class="col-md-3">
+              <h5>Links</h5>
+              <ul class="list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contactUS">Contact</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Follow Us</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100015573257919" target="_blank"
+                    ><i class="fab fa-facebook"></i> Facebook</a
+                  >
+                </li>
+                <li>
+                  <a href="https://twitter.com/UjjwalSharma1_9" target="_blank"
+                    ><i class="fab fa-twitter"></i> Twitter</a
+                  >
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/stfujjwal/" target="_blank"> <i class="fab fa-instagram"></i> Instagram</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <hr />
+          <div class="text-center foot">
+            <p>&copy; 2022 Love from Ujjwal ❤️. All Rights Reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Gallery</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+      }
+      
+      .gallery img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Gallery</h1>
+      <div class="gallery">
+        <img src="image1.jpg" alt="Image 1">
+        <img src="image2.jpg" alt="Image 2">
+        <img src="image3.jpg" alt="Image 3">
+        <img src="image4.jpg" alt="Image 4">
+        <img src="image5.jpg" alt="Image 5">
+        <img src="image6.jpg" alt="Image 6">
+      </div>
+    </div>
+  </body>
+</html> -->
